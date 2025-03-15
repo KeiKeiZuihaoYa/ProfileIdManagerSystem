@@ -157,14 +157,8 @@ private:
             // 处理根节点情况需要通过类成员访问，此处需要特殊处理
             // 实际使用中应通过类成员变量直接修改
         }
-        else if (parent->left == target)
-        {
-            parent->left = newChild;
-        }
         else
-        {
-            parent->right = newChild;
-        }
+            (parent->left == target ? parent->left : parent->right) = newChild;
     }
 };
 
