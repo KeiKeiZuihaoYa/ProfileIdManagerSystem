@@ -34,6 +34,11 @@ public:
             insertNode(&root, item);
     }
 
+    void add(const DataType &data)
+    {
+        insertNode(&root, data);
+    }
+
     const DataType *search(const DataType &target) const // 改为私域查询， 同时返回 const DataType* 确保不被修改
     {
         BTNode *found = findNode(root, target);
@@ -63,8 +68,13 @@ public:
             return;
         }
 
-        deleteNode(parent, current);
+        deleteNode(root, parent, current);
         std::cout << "Delete successful!" << std::endl;
+    }
+
+    bool update(const DataType &target)
+    {
+        return updateData(root, target);
     }
 
     void clear()
@@ -119,22 +129,40 @@ private:
         return target > node->data ? findNode(node->right, target) : findNode(node->left, target);
     }
 
-    // 节点删除核心逻辑
-    void deleteNode(BTNode *parent, BTNode *target)
+    bool updateData(BTNode *node, const DataType &target)
     {
+        if (!node)
+            return false;
+        if (target.sfz == node->data.sfz)
+        {
+            node->data = target;
+            return true;
+        }
+        return target > node->data ? updateData(node->right, target) : updateData(node->left, target);
+    }
+
+    // 节点删除核心逻辑
+    void deleteNode(BTNode *&root, BTNode *parent, BTNode *target)
+    {
+        if (target == nullptr)
+            return;
+
         if (!target->left && !target->right)
         {
-            updateParentPointer(parent, target, nullptr);
+            // 叶子节点：直接删除，父节点指针置空
+            updateParentPointer(root, parent, target, nullptr);
             delete target;
         }
         else if (!target->left || !target->right)
         {
+            // 只有一个子节点：用子节点替换目标节点
             BTNode *child = target->left ? target->left : target->right;
-            updateParentPointer(parent, target, child);
+            updateParentPointer(root, parent, target, child);
             delete target;
         }
         else
         {
+            // 有两个子节点：用前驱节点的值替换，并递归删除前驱
             BTNode *successor = target->left;
             BTNode *successorParent = target;
 
@@ -145,17 +173,16 @@ private:
             }
 
             target->data = successor->data;
-            deleteNode(successorParent, successor);
+            deleteNode(root, successorParent, successor); // 递归删除前驱节点
         }
     }
 
     // 更新父节点指针
-    static inline void updateParentPointer(BTNode *parent, BTNode *target, BTNode *newChild)
+    static inline void updateParentPointer(BTNode *&root, BTNode *parent, BTNode *target, BTNode *newChild)
     {
-        if (!parent)
+        if (!parent) // 说明 target 为 root
         {
-            // 处理根节点情况需要通过类成员访问，此处需要特殊处理
-            // 实际使用中应通过类成员变量直接修改
+            root = newChild;
         }
         else
             (parent->left == target ? parent->left : parent->right) = newChild;

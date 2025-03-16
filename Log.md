@@ -1,17 +1,71 @@
-# Mar 13:
+##### 这里是日志信息,记载着整个程序的新增完善与修改.  
+
+全局内容:
+- [x] 录入
+- [x] 查询
+- [x] 修改
+- [x] 删除
+- [ ] 导入
+- [ ] 导出
+- [ ] 设置错误状态并合理处理
+- [ ] 完善 Log.md & README.md
+# Mar 14:
 >### 在 csdn 上搜索相关二叉排序树代码,并对其内容与编程逻辑进行优化与修改(一言难尽啊)QAQ
 - [x] 实现了bstree.h 与 相应的函数
 - [x] 完成重载操作符相关代码
-### 后续已完成
-- [X] 将bstree进行封装成class(暂未学习)
-- [X] 将bstree的内存管理进行提升，同时完善接口与类型安全（原代码并没有实现）
-- [ ] 完成主函数相关代码
+#### 后续
+- [X] 将bstree进行封装成class (暂未学习) || (Mar15 finished)
+- [X] 将bstree的内存管理进行提升，同时完善接口与类型安全（原代码并没有实现） || (Mar15 finished)
+- [x] 完成主函数相关代码
 
-# Mar 14:
+# Mar 15:
 >## 凌晨:
 - [x] 在 cpp 中 删去 using namespace 防止污染全局命名空间
 - [x] 错误处理改进（使用标准异常处理机制）
-- [x] 将类定义和实现合并到.hpp文件 (确保所有函数不再依赖外部cpp文件中的实现)
+- [x] 将类定义和实现合并到.hpp文件 
 - [ ] 为每个函数增加注释
 >### 改出问题了，不知道是自己改的还是本身有的
-- [ ] Issue: 方法 remove 存在一定问题, 当 删除节点为root时触发空指针问题，产生数据丢失。
+- [x] Issue: 方法 remove 存在一定问题, 当 删除节点为root时触发空指针问题，产生数据丢失。
+``` cpp
+
+static inline void updateParentPointer(BTNode *&root, BTNode *parent, BTNode *target, BTNode *newChild)
+
+```
+>## 下午:
+- [X] 将功能函数进行细分,保证数据安全. 已全部将bstree进行封装成class => bstree.hpp
+- [x] 完成功能打印 `void printMainFuction()`
+- [x] 录入 (Mar16 finished)
+### 具体身份证检查
+- [x] 长度
+- [x] 字符类型
+- [ ] 地区检查
+- [x] 日期
+- [x] 校验码
+  
+# Mar 16
+>### 发现没做手机号码验证, 立马询问deepseek怎么检查号码正确, 于是得到了
+- [ ] 号段
+- [x] 长度
+- [x] 干扰字符
+- [ ] 国际号码处理
+- [x] 国际码处理
+>### 同时学了一下正则表达式验证(没学过之前都)
+- [x] 录入
+- [x] 查询
+- [x] 删除
+- [x] 修改
+>### 将所有函数实现在了hpp中(这是错误的),应该把声明留在hpp中,在cpp中具体实现重新调整代码逻辑,error:
+```
+[{
+	"resource": "/e:/ProfileIdManagerSystem/ProfileIdManagerSystem/main.cpp",
+	"owner": "C/C++: IntelliSense",
+	"code": "1696",
+	"severity": 8,
+	"message": "检测到 #include 错误。请更新 includePath。已为此翻译单元(E:\\ProfileIdManagerSystem\\ProfileIdManagerSystem\\main.cpp)禁用波形曲线。",
+	"source": "C/C++",
+	"startLineNumber": 3,
+	"startColumn": 1,
+	"endLineNumber": 3,
+	"endColumn": 26
+}]
+```
