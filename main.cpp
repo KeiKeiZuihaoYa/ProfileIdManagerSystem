@@ -1,6 +1,6 @@
 #include <iostream>
 #include "bstree.hpp"
-#include "myFunction.hpp"
+#include "myFunction.cpp"
 
 using std::cin;
 using std::cout;

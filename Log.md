@@ -54,19 +54,6 @@ static inline void updateParentPointer(BTNode *&root, BTNode *parent, BTNode *ta
 - [x] 查询
 - [x] 删除
 - [x] 修改
->### 将所有函数实现在了hpp中(这是错误的),应该把声明留在hpp中,在cpp中具体实现重新调整代码逻辑,error:
-```
-[{
-	"resource": "/e:/ProfileIdManagerSystem/ProfileIdManagerSystem/main.cpp",
-	"owner": "C/C++: IntelliSense",
-	"code": "1696",
-	"severity": 8,
-	"message": "检测到 #include 错误。请更新 includePath。已为此翻译单元(E:\\ProfileIdManagerSystem\\ProfileIdManagerSystem\\main.cpp)禁用波形曲线。",
-	"source": "C/C++",
-	"startLineNumber": 3,
-	"startColumn": 1,
-	"endLineNumber": 3,
-	"endColumn": 26
-}]
-```
->#### 同时我想,现在正在使用着github仓库托管,但关于git之类的东西几乎不太懂(在两台设备中进行着编写程序),诸如fork,branch之类,同时不明白一个团队几个人同时编写工程是如何通过git来进行协同的?
+### 将所有函数实现在了hpp中(这是错误的),应该把声明留在hpp中,在cpp中具体实现重新调整代码逻辑
+
+#### 同时我想,现在正在使用着github仓库托管,但关于git之类的东西几乎不太懂(在两台设备中进行着编写程序),诸如fork,branch之类,同时不明白一个团队几个人同时编写工程是如何通过git来进行协同的?

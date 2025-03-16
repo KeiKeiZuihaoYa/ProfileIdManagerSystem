@@ -113,4 +113,12 @@ namespace myFunction
             cout << "更改失败!\n";
         }
     }
+
+    void import(BSTree *&T)
+    {
+    }
+
+    void export(BSTree *&T)
+    {
+    }
 };
