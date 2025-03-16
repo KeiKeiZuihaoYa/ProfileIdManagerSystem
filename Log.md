@@ -69,3 +69,4 @@ static inline void updateParentPointer(BTNode *&root, BTNode *parent, BTNode *ta
 	"endColumn": 26
 }]
 ```
+>#### 同时我想,现在正在使用着github仓库托管,但关于git之类的东西几乎不太懂(在两台设备中进行着编写程序),诸如fork,branch之类,同时不明白一个团队几个人同时编写工程是如何通过git来进行协同的?
