@@ -1,4 +1,5 @@
-#include <iostream>
+﻿#include <iostream>
+#include <windows.h>
 #include "bstree.hpp"
 #include "myFunction.hpp"
 
@@ -8,19 +9,28 @@ BSTree *T = new BSTree;
 
 signed main()
 {
-    std::ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    // std::ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
 
     int opt;
     while (1)
     {
         printMainFuction();
-        cin >> opt;
+        enteringNumber(opt);
         switch (opt)
         {
         case 1: // add
         {
             BSTree::DataType newData = getNewData();
-            T->add(newData);
+            if (T->add(newData))
+            {
+                cout << "录入成功!\n\n";
+            }
+            else
+            {
+                cout << "录入失败!\n\n";
+            }
             break;
         }
         case 2: // update
@@ -38,20 +48,21 @@ signed main()
             deleteData(T);
             break;
         }
-        case 5: // import
+        case 6: // import
         {
             importData(T);
             break;
         }
-        case 6: // export
+        case 5: // export
         {
             exportData(T);
             break;
         }
         case 7:
         {
-            cout << " 祝您生活愉快!";
-            goto nxt;
+            cout << "\n\t祝您生活愉快!\n";
+            system("pause");
+            goto exi;
         }
         case 8:
         {
@@ -59,9 +70,10 @@ signed main()
             break;
         }
         default:
-            cout << "Error operation! PLZ type a right OPT number." << '\n';
+            cout << "\tError operation! PLZ type a right OPT number." << "\n\n";
+            break;
         }
     }
-nxt:
+exi:
     return 0;
 }
