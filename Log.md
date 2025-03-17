@@ -57,3 +57,10 @@ static inline void updateParentPointer(BTNode *&root, BTNode *parent, BTNode *ta
 ### 将所有函数实现在了hpp中(这是错误的),应该把声明留在hpp中,在cpp中具体实现重新调整代码逻辑
 
 #### 同时我想,现在正在使用着github仓库托管,但关于git之类的东西几乎不太懂(在两台设备中进行着编写程序),诸如fork,branch之类,同时不明白一个团队几个人同时编写工程是如何通过git来进行协同的?
+
+# Mar17
+>### 打开了vscode的代码分析发现全部cpp文件报错，主力机mingw64版本过低了。。。。而轻薄本没有。。 
+- [x] 导入
+- [x] 导出 
+>### 想新增一个功能，打印所有数据来更好的debug BSTREE的crud是否正常
+- [ ] 完成 ``` printAllData() ```

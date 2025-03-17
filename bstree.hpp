@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 class BSTree
 {
@@ -77,6 +79,42 @@ public:
         return updateData(root, target);
     }
 
+    bool importFromFile(const std::string &filename)
+    {
+        std::ifstream ifs(filename);
+        if (!ifs.is_open())
+        {
+            return false;
+        }
+
+        int cnt = 0;
+        std::string line;
+        while (std::getline(ifs, line))
+        {
+            cnt++;
+            std::istringstream is(line);
+            DataType data;
+
+            bool flag = !std::getline
+
+                            add(data);
+        }
+
+        ifs.close();
+        return true;
+    }
+
+    bool exportFromFile(const std::string &filename) const
+    {
+        std::ofstream ofs(filename);
+        if (!ofs.is_open())
+            return false;
+
+        inOrderExport(root, ofs);
+        ofs.close();
+        return true;
+    }
+
     void clear()
     {
         destroySubtree(root);
@@ -107,6 +145,19 @@ private:
         }
         else
             insertNode((data <= (*node)->data) ? &(*node)->left : &(*node)->right, data);
+    }
+
+    void inOrderExport(BTNode *node, std::ofstream &ofs) const
+    {
+        if (!node)
+            return;
+
+        inOrderExport(node->left, ofs);
+        ofs << node->data.sfz << ","
+            << node->data.name << ","
+            << node->data.phone << ","
+            << node->data.age << "\n";
+        inOrderExport(node->right, ofs);
     }
 
     // 递归销毁子树

@@ -1,6 +1,6 @@
 #include <iostream>
 #include "bstree.hpp"
-#include "myFunction.cpp"
+#include "myFunction.hpp"
 
 using std::cin;
 using std::cout;
@@ -13,45 +13,50 @@ signed main()
     int opt;
     while (1)
     {
-        myFunction::printMainFuction();
+        printMainFuction();
         cin >> opt;
         switch (opt)
         {
         case 1: // add
         {
-            BSTree::DataType newData = myFunction::getNewData();
+            BSTree::DataType newData = getNewData();
             T->add(newData);
             break;
         }
         case 2: // update
         {
-            myFunction::updateData(T);
+            updateData(T);
             break;
         }
         case 3: // search
         {
-            myFunction::search(T);
+            search(T);
             break;
         }
         case 4: // delete
         {
-            myFunction::deleteData(T);
+            deleteData(T);
             break;
         }
         case 5: // import
         {
-            myFunction::import(T);
+            importData(T);
             break;
         }
         case 6: // export
         {
-            myFunction::export(T);
+            exportData(T);
             break;
         }
         case 7:
         {
             cout << " 祝您生活愉快!";
             goto nxt;
+        }
+        case 8:
+        {
+            printAllData(T);
+            break;
         }
         default:
             cout << "Error operation! PLZ type a right OPT number." << '\n';
