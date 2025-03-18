@@ -23,6 +23,12 @@ signed main()
         case 1: // add
         {
             BSTree::DataType newData = getNewData();
+            if (newData.sfz == "") // quit
+            {
+                cout << "已取消录入操作!\n\n";
+                break;
+            }
+
             if (T->add(newData))
             {
                 cout << "录入成功!\n\n";

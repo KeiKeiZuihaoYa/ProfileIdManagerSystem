@@ -6,7 +6,6 @@
 #include <iostream>
 using std::cout;
 
-// 双层命名空间， 私密具体实现逻辑
 namespace
 {
     // 校验码表
@@ -19,7 +18,7 @@ namespace
     // 长度验证
     inline bool valilength(const std::string &id)
     {
-        if (id.length() == 0 || id.length() > 18)
+        if (id.length() != 18)
         {
             cout << "错误的身份证号码, 错误原因: 过长或过短的身份证号码\n";
             return false;
@@ -119,8 +118,8 @@ namespace
 // 为主验证函数（即对外暴露接口）
 bool validateId(std::string &_id)
 {
-    if (_id.length() >= 18 && _id[17] == 'x')
-        _id[17] = 'X';
+    if (_id == "quit")
+        return false;
 
     const std::string id = _id;
 

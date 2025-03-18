@@ -13,7 +13,10 @@ std::string enteringSFZ()
     std::string id;
     while (cin >> id && validateId(id) == false)
     {
-        cout << "请重新输入正确的身份证号码: ";
+        if (id != "quit")
+            cout << "请重新输入正确的身份证号码: ";
+        else
+            return "";
     }
 
     if (id[17] == 'x')
@@ -29,15 +32,6 @@ std::string enteringPhone()
         cout << "请重新输入正确的手机号码: ";
     }
     return phone;
-}
-
-inline void print_INFO(const BSTree::DataType *&data)
-{
-    cout << "查询成功!\n"
-         << "身份证号码:\t " << data->sfz << '\n'
-         << "姓名:\t\t\t" << data->name << '\n'
-         << "年龄:\t\t\t" << data->age << '\n'
-         << "手机号码:\t\t" << data->phone << "\n\n";
 }
 
 void printMainFuction()
@@ -61,12 +55,16 @@ const BSTree::DataType getNewData()
     BSTree::DataType newData;
     cout << "请输入正确的身份证号码: ";
     newData.sfz = enteringSFZ();
+    if (newData.sfz == "")
+        return newData;
     cout << "请输入正确的姓名: ";
     cin >> newData.name;
     cout << "请输入正确的年龄: ";
     cin >> newData.age;
     cout << "请输入正确的手机号码: ";
     newData.phone = enteringPhone();
+    cout << "请输入地址: ";
+    cin >> newData.address;
     return newData;
 }
 
@@ -75,6 +73,12 @@ void search(BSTree *&T)
     BSTree::DataType searchId;
     cout << "请输入想要查询的身份证号码: ";
     searchId.sfz = enteringSFZ();
+    // quit
+    if (searchId.sfz == "")
+    {
+        cout << "已退出查询操作!\n\n";
+        return;
+    }
     const BSTree::DataType *searchResult = T->search(searchId);
 
     if (searchResult == nullptr || searchResult->sfz != searchId.sfz)
@@ -83,7 +87,8 @@ void search(BSTree *&T)
     }
     else
     {
-        print_INFO(searchResult);
+        cout << "查询成功!\n\n";
+        BSTree::print_INFO(searchResult);
     }
 }
 
@@ -92,6 +97,12 @@ void deleteData(BSTree *&T)
     BSTree::DataType deleteId;
     cout << "请输入想要删除信息的身份证号码: ";
     deleteId.sfz = enteringSFZ();
+    // quit
+    if (deleteId.sfz == "")
+    {
+        cout << "已退出删除操作!\n\n";
+        return;
+    }
     T->remove(deleteId);
 }
 
@@ -100,6 +111,12 @@ void updateData(BSTree *&T)
     BSTree::DataType updateDataId;
     cout << "请输入想要更改信息的身份证号码: ";
     updateDataId.sfz = enteringSFZ();
+    // quit
+    if (updateDataId.sfz == "")
+    {
+        cout << "已退出更新操作!\n\n";
+        return;
+    }
 
     if (T->update(updateDataId))
     {
@@ -107,7 +124,8 @@ void updateData(BSTree *&T)
     }
     else
     {
-        cout << "更改失败!\n\n";
+        cout << "未找到该身份证信息!\n"
+             << "更改失败!\n\n";
     }
 }
 
@@ -145,7 +163,7 @@ void exportData(BSTree *&T)
 
 void printAllData(BSTree *&T)
 {
-    cout << "打印所有数据-> 身份证, 姓名, 手机号码, 年龄\n";
+    cout << "打印所有数据-> 身份证, 姓名, 手机号码, 地址, 年龄\n";
     T->exportToTerminal();
 }
 

@@ -18,6 +18,7 @@ public:
         std::string sfz;
         std::string name;
         std::string phone;
+        std::string address;
         int age;
 
         // 重载各种使用到的操作符
@@ -35,7 +36,8 @@ public:
     {
         while (!(std::cin >> a))
         {
-            std::cout << "错误：请输入数字选项！\n\n";
+            std::cout << "错误：请输入数字选项！\n"
+                      << "请重新输入数字: ";
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
@@ -79,6 +81,15 @@ public:
         std::cout << "Delete successful!" << "\n\n";
     }
 
+    inline static void print_INFO(const BSTree::DataType *data)
+    {
+        std::cout << "姓名:\t\t" << data->name << '\n'
+                  << "身份证号码:\t" << data->sfz << '\n'
+                  << "年龄:\t\t" << data->age << '\n'
+                  << "地址:\t\t" << data->address << '\n'
+                  << "手机号码:\t" << data->phone << "\n\n";
+    }
+
     bool update(const DataType &target)
     {
         BTNode *updateNode = updateData(root, target);
@@ -88,20 +99,29 @@ public:
         }
         else
         {
-            BTNode _updateData;
+            DataType _updateData;
+            _updateData.sfz = target.sfz;
             while (1)
             {
                 std::cin.clear();                                                   // 清除错误标志
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // 清空缓冲区
                 std::cout << "请输入更改后的姓名: ";
-                std::cin >> _updateData.data.name;
+                std::cin >> _updateData.name;
+                // quit
+                if (_updateData.name == "quit")
+                {
+                    std::cout << "已终止更新操作\n\n";
+                    return false;
+                }
                 std::cout << "请输入更改后的年龄: ";
-                enteringNumber(_updateData.data.age);
+                enteringNumber(_updateData.age);
                 std::cout << "请输入更改后的手机号: ";
-                std::cin >> _updateData.data.phone;
+                std::cin >> _updateData.phone;
+                std::cout << "请输入更改后的地址: ";
+                std::cin >> _updateData.address;
 
                 std::cout << "请确认信息:\n";
-                inOrderExport(&_updateData, std::cout, "\t");
+                print_INFO(&_updateData);
                 std::cout << "\n确认?(Y\\n) ";
                 char opt;
                 while (std::cin >> opt && !(toupper(opt) == 'Y' || toupper(opt) == 'N'))
@@ -110,10 +130,7 @@ public:
                 }
                 if (toupper(opt) == 'Y')
                 {
-                    updateNode->data.sfz = _updateData.data.sfz;
-                    updateNode->data.name = _updateData.data.name;
-                    updateNode->data.phone = _updateData.data.phone;
-                    updateNode->data.age = _updateData.data.age;
+                    updateNode->data = _updateData;
                     break;
                 }
                 else
@@ -127,9 +144,16 @@ public:
 
     bool importFromFile(const std::string &filename)
     {
+        if (!std::filesystem::exists(filename))
+        {
+            std::cout << "文件不存在! 请重新输入正确的文件路径!\n";
+            return false;
+        }
+
         std::ifstream ifs(filename);
         if (!ifs.is_open())
         {
+            std::cout << "无法打开文件!\n";
             return false;
         }
 
@@ -144,6 +168,7 @@ public:
             if (!std::getline(is, data.sfz, ',') ||
                 !std::getline(is, data.name, ',') ||
                 !std::getline(is, data.phone, ',') ||
+                !std::getline(is, data.address, ',') ||
                 !std::getline(is, tmp))
             {
                 is.clear();
@@ -163,10 +188,6 @@ public:
 
     bool exportToFile(const std::string &filename) const
     {
-        std::ofstream ofs(filename);
-        if (!ofs.is_open())
-            return false;
-
         if (std::filesystem::exists(filename))
         {
             std::cin.clear();                                                   // 清除错误标志
@@ -179,9 +200,13 @@ public:
             if (std::tolower(choice) != 'y')
             {
                 std::cout << "操作已取消。" << std::endl;
-                return false;
+                return true;
             }
         }
+
+        std::ofstream ofs(filename);
+        if (!ofs.is_open())
+            return false;
 
         inOrderExport(root, ofs, ",");
         ofs.close();
@@ -237,6 +262,7 @@ private:
         os << node->data.sfz << S
            << node->data.name << S
            << node->data.phone << S
+           << node->data.address << S
            << node->data.age << "\n";
         inOrderExport(node->right, os, S);
     }
