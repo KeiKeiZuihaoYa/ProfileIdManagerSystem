@@ -75,4 +75,4 @@ static inline void updateParentPointer(BTNode *&root, BTNode *parent, BTNode *ta
 >### 想做一个返回的操作选项
 - [x] 输入身份证时可以输入quit指令让程序终止当前操作
 >### !!修改操作能把人改没了 ?!?!
-- [ ] 修复修改操作会丢失身份证信息
+- [x] 修复修改操作会丢失身份证信息
