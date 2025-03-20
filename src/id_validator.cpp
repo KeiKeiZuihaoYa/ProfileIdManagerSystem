@@ -1,21 +1,29 @@
 ﻿#include "id_validator.hpp"
-#include <string>
-#include <map>
-#include <ctime>
-#include <cctype>
-#include <iostream>
+
 using std::cout;
 
 namespace
 {
-    // 校验码表
+    /**
+     * @brief 身份证各余数所对应的校验码
+     *
+     */
     static const std::map<int, char> CHECK_CODE = {
         {0, '1'}, {1, '0'}, {2, 'X'}, {3, '9'}, {4, '8'}, {5, '7'}, {6, '6'}, {7, '5'}, {8, '4'}, {9, '3'}, {10, '2'}};
 
-    // 权重因子
+    /**
+     * @brief 权重因子
+     *
+     */
     static const int WEIGHT[17] = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
 
-    // 长度验证
+    /**
+     * @brief 长度验证
+     *
+     * @param id 身份证字符串
+     * @return true 合法长度
+     * @return false 非法长度
+     */
     inline bool valilength(const std::string &id)
     {
         if (id.length() != 18)
@@ -26,12 +34,25 @@ namespace
         return true;
     }
 
+    /**
+     * @brief 判断是否为一个非数字字符
+     *
+     * @param now 需判断的字符
+     * @return true 字符不是一个数字
+     * @return false 字符是一个数字
+     */
     inline bool IsNotNumber(const char now)
     {
         return !isdigit(now);
     }
 
-    // 字符验证
+    /**
+     * @brief 对身份证的各字符进行验证是否合法
+     *
+     * @param id 身份证字符串
+     * @return true 身份证合法
+     * @return false 身份证不合法
+     */
     inline bool valichar(const std::string &id)
     {
         bool flag = true;
@@ -52,13 +73,25 @@ namespace
         return flag;
     }
 
-    // 行政区划验证
+    /**
+     * @brief 对身份证的行政区划号码合法性进行验证 (Not finished)
+     *
+     * @param code 身份证行政区划号码
+     * @return true 合法
+     * @return false 非法
+     */
     inline bool validateRegion(const std::string &code)
     {
         return true;
     }
 
-    // 日期验证
+    /**
+     * @brief 对身份证的日期合法性进行验证
+     *
+     * @param dateStr 身份证生日
+     * @return true 合法
+     * @return false 非法
+     */
     inline bool validateBirthDate(const std::string &dateStr)
     {
         bool flag = true;
@@ -97,7 +130,13 @@ namespace
         return flag;
     }
 
-    // 计算校验码
+    /**
+     * @brief 对身份证的校验码进行计算并检验合法性
+     *
+     * @param id 身份证字符串
+     * @return true 合法
+     * @return false 非法
+     */
     inline bool calculateCheckCode(const std::string &id)
     {
         int sum = 0;
@@ -115,7 +154,13 @@ namespace
     }
 }
 
-// 为主验证函数（即对外暴露接口）
+/**
+ * @brief 为主验证函数（即对外暴露接口）
+ *
+ * @param _id 待检验身份证
+ * @return true 合法身份证
+ * @return false 不合法身份证
+ */
 bool validateId(std::string &_id)
 {
     if (_id == "quit")

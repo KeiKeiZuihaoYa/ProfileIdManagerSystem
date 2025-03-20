@@ -1,13 +1,13 @@
 ﻿#include "myFunction.hpp"
-#include <string>
-#include <iostream>
-#include <limits>
-#include "id_validator.hpp"
-#include "phone_validator.hpp"
 
 using std::cin;
 using std::cout;
 
+/**
+ * @brief 从 cin 中得到一个合法的身份证号码
+ *
+ * @return std::string
+ */
 std::string enteringSFZ()
 {
     std::string id;
@@ -24,6 +24,11 @@ std::string enteringSFZ()
     return id;
 }
 
+/**
+ * @brief 从 cin 中得到一个合法的身份证号码
+ *
+ * @return std::string
+ */
 std::string enteringPhone()
 {
     std::string phone;
@@ -34,6 +39,10 @@ std::string enteringPhone()
     return phone;
 }
 
+/**
+ * @brief 打印主菜单
+ *
+ */
 void printMainFuction()
 {
     cout << '\n'
@@ -49,7 +58,11 @@ void printMainFuction()
          << "请输入您想要的操作: ";
 }
 
-// 录入新信息
+/**
+ * @brief Get the New Data object
+ *
+ * @return const BSTree::DataType
+ */
 const BSTree::DataType getNewData()
 {
     BSTree::DataType newData;
@@ -68,6 +81,11 @@ const BSTree::DataType getNewData()
     return newData;
 }
 
+/**
+ * @brief The function of search in MainMenu
+ *
+ * @param T The main tree's address
+ */
 void search(BSTree *&T)
 {
     BSTree::DataType searchId;
@@ -92,6 +110,11 @@ void search(BSTree *&T)
     }
 }
 
+/**
+ * @brief The function of delete in MainMenu
+ *
+ * @param T The main tree's address
+ */
 void deleteData(BSTree *&T)
 {
     BSTree::DataType deleteId;
@@ -106,6 +129,11 @@ void deleteData(BSTree *&T)
     T->remove(deleteId);
 }
 
+/**
+ * @brief The function of update in MainMenu
+ *
+ * @param T The main tree's address
+ */
 void updateData(BSTree *&T)
 {
     BSTree::DataType updateDataId;
@@ -129,6 +157,11 @@ void updateData(BSTree *&T)
     }
 }
 
+/**
+ * @brief The function of importing from a file which has been saved
+ *
+ * @param T The main tree's address
+ */
 void importData(BSTree *&T)
 {
     std::string filename;
@@ -145,6 +178,11 @@ void importData(BSTree *&T)
     }
 }
 
+/**
+ * @brief The function of exporting date to a file
+ *
+ * @param T The main tree's address
+ */
 void exportData(BSTree *&T)
 {
     std::string filename;
@@ -161,12 +199,22 @@ void exportData(BSTree *&T)
     }
 }
 
+/**
+ * @brief The function of printing all data in the main tree
+ *
+ * @param T The main tree's address
+ */
 void printAllData(BSTree *&T)
 {
     cout << "打印所有数据-> 身份证, 姓名, 手机号码, 地址, 年龄\n";
     T->exportToTerminal();
 }
 
+/**
+ * @brief 从 cin 中得到一个合法的身份证号码
+ *
+ * @param a 从 a 中返回
+ */
 void enteringNumber(int &a)
 {
     while (!(std::cin >> a))

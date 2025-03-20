@@ -1,5 +1,10 @@
 ﻿#pragma once
 #include "bstree.hpp"
+#include <string>
+#include <iostream>
+#include <limits>
+#include "id_validator.hpp"
+#include "phone_validator.hpp"
 
 std::string enteringSFZ();
 std::string enteringPhone();

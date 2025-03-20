@@ -1,5 +1,4 @@
-﻿#ifndef BSTREE_HPP
-#define BSTREE_HPP
+﻿#pragma once
 // bstree.hpp
 
 #include <string>
@@ -343,5 +342,3 @@ private:
             (parent->left == target ? parent->left : parent->right) = newChild;
     }
 };
-
-#endif

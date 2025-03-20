@@ -16,6 +16,7 @@ signed main()
     int opt;
     while (1)
     {
+        system("cls");
         printMainFuction();
         enteringNumber(opt);
         switch (opt)
@@ -79,6 +80,7 @@ signed main()
             cout << "\tError operation! PLZ type a right OPT number." << "\n\n";
             break;
         }
+        system("pause");
     }
 exi:
     return 0;
