@@ -45,17 +45,17 @@ std::string enteringPhone()
  */
 void printMainFuction()
 {
-    cout << '\n'
-         << "*********************" << '\n'
-         << "*\t1.录入      *" << '\n'
-         << "*\t2.修改      *" << '\n'
-         << "*\t3.查询      *" << '\n'
-         << "*\t4.删除      *" << '\n'
-         << "*\t5.导出      *" << '\n'
-         << "*\t6.导入      *" << '\n'
-         << "*\t7.退出      *" << '\n'
-         << "*********************" << '\n'
-         << "请输入您想要的操作: ";
+    std::cout << '\n'
+               << "*********************" << '\n'
+               << "*\t1.录入      *" << '\n'
+               << "*\t2.修改      *" << '\n'
+               << "*\t3.查询      *" << '\n'
+               << "*\t4.删除      *" << '\n'
+               << "*\t5.导出      *" << '\n'
+               << "*\t6.导入      *" << '\n'
+               << "*\t7.退出      *" << '\n'
+               << "*********************" << '\n'
+               << "请输入您想要的操作: ";
 }
 
 /**
@@ -71,13 +71,13 @@ const BSTree::DataType getNewData()
     if (newData.sfz == "")
         return newData;
     cout << "请输入正确的姓名: ";
-    cin >> newData.name;
+    std::cin >> newData.name;
     cout << "请输入正确的年龄: ";
     cin >> newData.age;
     cout << "请输入正确的手机号码: ";
     newData.phone = enteringPhone();
     cout << "请输入地址: ";
-    cin >> newData.address;
+    std::cin >> newData.address;
     return newData;
 }
 
@@ -217,11 +217,25 @@ void printAllData(BSTree *&T)
  */
 void enteringNumber(int &a)
 {
-    while (!(std::cin >> a))
+    bool flag = true;
+    std::string s;
+    while (std::getline(cin, s) && flag)
     {
+        flag = a = 0;
+        for (auto &i : s)
+        {
+            a = (a << 3) + (a << 1) + i - '0';
+            if (!isdigit(i))
+            {
+                flag = true;
+                break;
+            }
+        }
+
+        if (!flag)
+            return;
+
         std::cout << "错误：请输入合理数字选项！\n"
                   << "请重新输入: ";
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 }
