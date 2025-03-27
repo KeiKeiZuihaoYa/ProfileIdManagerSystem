@@ -1,3 +1,3 @@
 # ProfileIdManagerSystem
 
-The project of Identity-ID Managing which is homework from school.
+学校课程的小项目。
