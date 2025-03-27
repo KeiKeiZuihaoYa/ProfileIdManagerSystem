@@ -316,18 +316,18 @@ private:
         }
         else
         {
-            // 有两个子节点：用前驱节点的值替换，并递归删除前驱
-            BTNode *successor = target->left;
+            // 有两个子节点：用后驱节点的值替换，并递归删除后驱
+            BTNode *successor = target->right;
             BTNode *successorParent = target;
 
-            while (successor->right)
+            while (successor->left)
             {
                 successorParent = successor;
-                successor = successor->right;
+                successor = successor->left;
             }
 
             target->data = successor->data;
-            deleteNode(root, successorParent, successor); // 递归删除前驱节点
+            deleteNode(root, successorParent, successor); // 递归删除后驱节点
         }
     }
 
