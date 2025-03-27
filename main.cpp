@@ -81,6 +81,7 @@ signed main()
             break;
         }
         system("pause");
+        cin.ignore();
     }
 exi:
     return 0;
